@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Egg Walk 3D - Balance & Walk</title>
+  <meta name="description" content="Hold your spoon steady, balance the egg, and navigate the windy obstacle path in this immersive 3D balancing game built with Three.js!">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Import Maps for Three.js ES Modules -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Canvas container for Three.js renderer -->
+  <div id="canvas-container"></div>
+
+  <!-- UI Overlays -->
+  <div id="ui-container">
+    
+    <!-- HUD (Heads-Up Display) -->
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-card progress-card">
+          <span class="label">DISTANCE</span>
+          <span id="distance-value" class="value">0m / 100m</span>
+          <div class="progress-bar-bg">
+            <div id="progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="hud-card balance-card">
+          <span class="label">EGG STABILITY</span>
+          <div class="balance-meter-container">
+            <div id="balance-indicator"></div>
+            <div id="balance-center-marker"></div>
+          </div>
+        </div>
+
+        <div class="hud-card speed-card">
+          <span class="label">SPEED</span>
+          <span id="speed-value" class="value">0.0 km/h</span>
+        </div>
+      </div>
+
+      <div class="hud-bottom">
+        <div id="wind-warning" class="hud-card wind-card hidden">
+          <span class="wind-icon">💨</span>
+          <span class="wind-text">CROSSWIND!</span>
+          <div class="wind-arrow-container">
+            <span id="wind-arrow">➔</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start/Main Menu Overlay -->
+    <div id="menu-screen" class="overlay-screen active">
+      <div class="glass-panel text-center">
+        <div class="logo-container">
+          <div class="logo-egg-bounce">🥚</div>
+          <h1 class="logo-text">EGG WALK <span>3D</span></h1>
+        </div>
+        <p class="subtitle">Steady your hands, counter the wind, and keep the egg safe!</p>
+        
+        <div class="instructions-panel">
+          <h3>HOW TO PLAY:</h3>
+          <ul>
+            <li><span class="key">W</span> <span class="key">A</span> <span class="key">S</span> <span class="key">D</span> or <span class="key">Arrows</span> to Walk & Steer</li>
+            <li>Move your <span class="key font-outfit">Mouse</span> or <span class="key font-outfit">Drag</span> to Tilt and Balance the Spoon</li>
+            <li>Watch out for <span class="highlight-wind">💨 Wind Gusts</span> and <span class="highlight-bumpy">⛰️ Bumpy Terrains</span>!</li>
+          </ul>
+        </div>
+
+        <button id="start-btn" class="btn btn-primary">START WALKING</button>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="overlay-screen hidden">
+      <div class="glass-panel text-center">
+        <div class="failure-emoji">🍳</div>
+        <h2 class="title-failed">CRACKED!</h2>
+        <p class="summary-text">Oh no! The egg fell off the spoon and splattered!</p>
+        
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">Walked</span>
+            <span id="fail-distance" class="stat-value">0m</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Spoon Wobbles</span>
+            <span id="fail-wobbles" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <button id="restart-btn" class="btn btn-danger">TRY AGAIN</button>
+      </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victory-screen" class="overlay-screen hidden">
+      <div class="glass-panel text-center">
+        <div class="victory-emoji">🏆</div>
+        <h2 class="title-victory">VICTORY!</h2>
+        <p class="summary-text">You successfully walked the egg across the finish line!</p>
+        
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">Time Taken</span>
+            <span id="win-time" class="stat-value">0s</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Avg Stability</span>
+            <span id="win-stability" class="stat-value">95%</span>
+          </div>
+        </div>
+
+        <button id="play-again-btn" class="btn btn-primary">WALK AGAIN</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Main JS Module Entrypoint -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

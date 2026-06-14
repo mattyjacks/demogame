@@ -1,0 +1,518 @@
+/* Reset & General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Fredoka', 'Outfit', system-ui, -apple-system, sans-serif;
+  background-color: #0b0f19;
+  color: #f3f4f6;
+}
+
+#canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#ui-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Glassmorphism Panel base styling */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  pointer-events: auto;
+  animation: floatIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes floatIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Overlays */
+.overlay-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.2) 0%, rgba(7, 10, 18, 0.8) 100%);
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  z-index: 20;
+}
+
+.overlay-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.overlay-screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Typography & Visual Accents */
+.text-center {
+  text-align: center;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo-egg-bounce {
+  font-size: 80px;
+  display: inline-block;
+  animation: bounceEgg 2s infinite ease-in-out;
+  filter: drop-shadow(0 10px 15px rgba(254, 243, 199, 0.4));
+}
+
+@keyframes bounceEgg {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+.logo-text {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+  margin-top: 10px;
+}
+
+.logo-text span {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 5px;
+}
+
+.subtitle {
+  font-family: 'Outfit', sans-serif;
+  color: #94a3b8;
+  font-size: 16px;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+/* Instructions */
+.instructions-panel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.instructions-panel h3 {
+  font-size: 14px;
+  color: #fbbf24;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.instructions-panel ul {
+  list-style: none;
+}
+
+.instructions-panel li {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.instructions-panel li:last-child {
+  margin-bottom: 0;
+}
+
+.key {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+.highlight-wind {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.highlight-bumpy {
+  color: #f87171;
+  font-weight: 600;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 16px 32px;
+  border-radius: 16px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: none;
+  color: #ffffff;
+  outline: none;
+  pointer-events: auto;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 8px 20px rgba(217, 119, 6, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(217, 119, 6, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(220, 38, 38, 0.45);
+}
+
+.btn-danger:active {
+  transform: translateY(1px);
+}
+
+/* Victory Screen Details */
+.title-victory {
+  font-size: 40px;
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 10px;
+  font-weight: 800;
+}
+
+.title-failed {
+  font-size: 40px;
+  background: linear-gradient(135deg, #fca5a5 0%, #ef4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 10px;
+  font-weight: 800;
+}
+
+.victory-emoji, .failure-emoji {
+  font-size: 80px;
+}
+
+.summary-text {
+  font-family: 'Outfit', sans-serif;
+  color: #cbd5e1;
+  font-size: 16px;
+  margin: 15px 0 25px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* HUD System */
+#hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+#hud.hidden {
+  display: none;
+}
+
+.hud-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.hud-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 14px 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-card .label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.hud-card .value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Progress HUD Component */
+.progress-card {
+  width: 250px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  border-radius: 3px;
+  transition: width 0.1s ease;
+}
+
+/* Balance HUD Component (Visual Joystick / Bubble level) */
+.balance-card {
+  align-items: center;
+  width: 140px;
+}
+
+.balance-meter-container {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+#balance-center-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+#balance-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fbbf24;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.8);
+  transition: transform 0.05s linear;
+  pointer-events: none;
+}
+
+/* Speed HUD Component */
+.speed-card {
+  min-width: 110px;
+  text-align: right;
+  align-items: flex-end;
+}
+
+/* Wind Warning HUD Component */
+.hud-bottom {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.wind-card {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+  padding: 10px 20px;
+  animation: pulseWind 1.5s infinite alternate ease-in-out;
+}
+
+.wind-card.hidden {
+  display: none;
+}
+
+@keyframes pulseWind {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
+  }
+  to {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+  }
+}
+
+.wind-icon {
+  font-size: 24px;
+}
+
+.wind-text {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 1px;
+}
+
+.wind-arrow-container {
+  display: inline-block;
+  font-size: 20px;
+  color: #38bdf8;
+}
+
+#wind-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media(max-width: 600px) {
+  .hud-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .progress-card {
+    width: 100%;
+    order: 1;
+  }
+  .balance-card {
+    order: 2;
+    width: calc(50% - 5px);
+  }
+  .speed-card {
+    order: 3;
+    width: calc(50% - 5px);
+  }
+  .glass-panel {
+    padding: 24px;
+  }
+  .logo-text {
+    font-size: 32px;
+  }
+  .logo-egg-bounce {
+    font-size: 60px;
+  }
+}
